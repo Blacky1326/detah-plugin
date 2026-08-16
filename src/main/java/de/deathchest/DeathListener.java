@@ -59,6 +59,11 @@ public class DeathListener implements Listener {
                 .replace("%z%", String.valueOf(chestLocation.getBlockZ()))
                 .replace("%world%", chestLocation.getWorld() != null ? chestLocation.getWorld().getName() : "?");
         player.sendMessage(message);
+
+        if (plugin.getConfig().getBoolean("broadcast-death", false)) {
+            String broadcast = plugin.msg("death-broadcast").replace("%player%", player.getName());
+            Bukkit.broadcastMessage(broadcast);
+        }
     }
 
     @EventHandler
@@ -66,6 +71,9 @@ public class DeathListener implements Listener {
         Player player = event.getPlayer();
         Location chestLocation = plugin.getPendingCompassGrant().remove(player.getUniqueId());
         if (chestLocation == null) {
+            return;
+        }
+        if (!plugin.getConfig().getBoolean("give-marker-on-respawn", true)) {
             return;
         }
 
@@ -112,10 +120,15 @@ public class DeathListener implements Listener {
         PersistentDataContainer pdc = chest.getPersistentDataContainer();
         if (!pdc.has(plugin.getDeathChestKey(), PersistentDataType.BYTE)) return;
 
-        Integer exp = pdc.get(plugin.getDeathChestExpKey(), PersistentDataType.INTEGER);
-        if (exp != null && exp > 0 && event.getPlayer() instanceof Player player) {
-            player.giveExp(exp);
-            player.sendMessage(plugin.msg("xp-restored").replace("%xp%", String.valueOf(exp)));
+        Integer storedExp = pdc.get(plugin.getDeathChestExpKey(), PersistentDataType.INTEGER);
+        if (storedExp != null && storedExp > 0 && event.getPlayer() instanceof Player player) {
+            int percentage = Math.max(0, Math.min(100, plugin.getConfig().getInt("xp-return-percentage", 100)));
+            int expToGive = (storedExp * percentage) / 100;
+
+            if (expToGive > 0) {
+                player.giveExp(expToGive);
+                player.sendMessage(plugin.msg("xp-restored").replace("%xp%", String.valueOf(expToGive)));
+            }
             pdc.set(plugin.getDeathChestExpKey(), PersistentDataType.INTEGER, 0);
             chest.update(true, false);
         }

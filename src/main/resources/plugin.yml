@@ -1,0 +1,16 @@
+name: DeathChest
+version: '1.0.0'
+main: de.deathchest.DeathChestPlugin
+api-version: '26.2'
+author: Du
+description: Legt beim Tod alle verlorenen Items und XP in eine Truhe und gibt einen Kompass-Marker zum Fundort.
+
+commands:
+  deathchest:
+    description: Gibt dir erneut einen Marker-Kompass zu deiner letzten Todes-Truhe.
+    usage: /deathchest
+
+permissions:
+  deathchest.bypass:
+    description: Erlaubt das Oeffnen fremder Todes-Truhen
+    default: op

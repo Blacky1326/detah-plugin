@@ -1,0 +1,13 @@
+# Duerfen nur Besitzer ihre eigene Todes-Truhe oeffnen?
+# Spieler mit der Permission "deathchest.bypass" duerfen immer.
+protect-chest: true
+
+# Leere Todes-Truhen automatisch entfernen, sobald der letzte Gegenstand entnommen wurde.
+remove-when-empty: true
+
+messages:
+  death: "&c☠ Du bist gestorben! Deine Sachen liegen in einer Truhe bei &fX: %x% Y: %y% Z: %z% &7(%world%)"
+  marker-given: "&7Du hast einen &fTodes-Marker&7-Kompass erhalten. Er zeigt zu deiner Truhe."
+  not-your-chest: "&cDas ist nicht deine Todes-Truhe!"
+  xp-restored: "&a+%xp% Erfahrungspunkte zurückerhalten!"
+  no-chest: "&7Du hast aktuell keine offene Todes-Truhe."

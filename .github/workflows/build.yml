@@ -1,0 +1,32 @@
+name: Build DeathChest Plugin
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code auschecken
+        uses: actions/checkout@v4
+
+      - name: Java 21 einrichten
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+
+      - name: Mit Maven bauen
+        run: mvn -B clean package
+
+      - name: Fertige jar als Artifact hochladen
+        uses: actions/upload-artifact@v4
+        with:
+          name: DeathChest
+          path: target/DeathChest.jar

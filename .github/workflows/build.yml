@@ -15,11 +15,11 @@ jobs:
       - name: Code auschecken
         uses: actions/checkout@v4
 
-      - name: Java 21 einrichten
+      - name: Java 25 einrichten
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '21'
+          java-version: '25'
           cache: 'maven'
 
       - name: Mit Maven bauen

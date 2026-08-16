@@ -1,3 +1,7 @@
+# ============================================
+#  DeathChest - Konfiguration
+# ============================================
+
 # Duerfen nur Besitzer ihre eigene Todes-Truhe oeffnen?
 # Spieler mit der Permission "deathchest.bypass" duerfen immer.
 protect-chest: true
@@ -5,9 +9,42 @@ protect-chest: true
 # Leere Todes-Truhen automatisch entfernen, sobald der letzte Gegenstand entnommen wurde.
 remove-when-empty: true
 
+# Nach wie vielen Minuten eine Todes-Truhe automatisch verschwindet, AUCH WENN sie noch
+# Items enthaelt (die Items werden dann auf dem Boden ausgeschuettet, statt verloren zu gehen).
+# 0 = nie automatisch entfernen (Standard).
+chest-lifetime-minutes: 0
+
+# Maximale Anzahl zusaetzlicher Truhen, falls die Items eines Spielers nicht in eine
+# einzelne Truhe (27 Slots) passen.
+max-additional-chests: 8
+
+# Ob nach dem Respawn automatisch ein Marker-Kompass vergeben wird.
+# Auch bei "false" kann sich der Spieler jederzeit einen ueber /deathchest holen.
+give-marker-on-respawn: true
+
+# Wie viel Prozent der verlorenen Erfahrungspunkte beim Oeffnen der Truhe zurueckgegeben werden.
+# 100 = alles zurueck, 50 = nur die Haelfte, 0 = keine XP-Rueckgabe.
+xp-return-percentage: 100
+
+# Ob allen Spielern auf dem Server eine Nachricht geschickt wird, wenn jemand stirbt.
+broadcast-death: false
+
+# Aussehen des Marker-Kompasses.
+# Hinweis: Der "Zeigt zur Truhe"-Effekt funktioniert nur bei material: COMPASS.
+# Ein anderes Material ist rein kosmetisch (zeigt nicht automatisch die Richtung an).
+marker:
+  material: COMPASS
+  name: "&c☠ &fTodes-Marker"
+  lore:
+    - "&7Zeigt zu deinem letzten Tod"
+    - "&7X: %x% Y: %y% Z: %z%"
+
+# Alle Texte, die das Plugin verschickt. "&" wird zu Minecraft-Farbcodes umgewandelt.
 messages:
   death: "&c☠ Du bist gestorben! Deine Sachen liegen in einer Truhe bei &fX: %x% Y: %y% Z: %z% &7(%world%)"
+  death-broadcast: "&7%player% ist gestorben und hat eine Todes-Truhe hinterlassen."
   marker-given: "&7Du hast einen &fTodes-Marker&7-Kompass erhalten. Er zeigt zu deiner Truhe."
   not-your-chest: "&cDas ist nicht deine Todes-Truhe!"
   xp-restored: "&a+%xp% Erfahrungspunkte zurückerhalten!"
   no-chest: "&7Du hast aktuell keine offene Todes-Truhe."
+  chest-expired: "&7Deine alte Todes-Truhe ist abgelaufen. Die Items wurden am Ort der Truhe auf den Boden gelegt."
